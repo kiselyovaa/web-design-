@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задания</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 500;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .nav-button {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-decoration: none;
+            color: #0f172a;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .button-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .portfolio .button-icon {
+            background-color: #3b82f6;
+        }
+
+        .dashboard .button-icon {
+            background-color: #10b981;
+        }
+
+        .game .button-icon {
+            background-color: #8b5cf6;
+        }
+
+        .button-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .button-number {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #94a3b8;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .error-message {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #ef4444;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            max-width: 320px;
+        }
+
+        .error-message.show {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .buttons-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                margin-bottom: 40px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .error-message {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Задания</h1>
+            <div class="subtitle">Выберите задание для просмотра</div>
+        </div>
+
+        <div class="buttons-grid">
+            <a href="portfolio/index.html" class="nav-button portfolio">
+                <div class="button-icon">P</div>
+                <div class="button-text">Портфолио</div>
+                <div class="button-number">Задание 1</div>
+            </a>
+
+            <a href="dashboard/index.html" class="nav-button dashboard">
+                <div class="button-icon">D</div>
+                <div class="button-text">Дашборд</div>
+                <div class="button-number">Задание 2</div>
+            </a>
+
+            <a href="game/index.html" class="nav-button game">
+                <div class="button-icon">G</div>
+                <div class="button-text">Игра</div>
+                <div class="button-number">Задание 3</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            Навигационная страница • Все задания находятся в соответствующих папках
+        </div>
+    </div>
+
+    <div class="error-message" id="errorMessage">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12" y2="16"></line>
+        </svg>
+        <span id="errorText">Папка не найдена</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.nav-button');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            // Проверка существования файлов при клике
+            buttons.forEach(button => {
+                button.addEventListener('click', async function(e) {
+                    const url = this.getAttribute('href');
+                    const buttonName = this.querySelector('.button-text').textContent;
+                    
+                    try {
+                        const response = await fetch(url, { method: 'HEAD' });
+                        
+                        if (!response.ok) {
+                            e.preventDefault();
+                            showError(`Папка "${buttonName.toLowerCase()}" не найдена`);
+                        }
+                    } catch (error) {
+                        e.preventDefault();
+                        showError(`Папка "${buttonName.toLowerCase()}" не найдена`);
+                    }
+                });
+            });
+            
+            // Функция показа ошибки
+            function showError(text) {
+                errorText.textContent = text;
+                errorMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 4000);
+            }
+            
+            // Проверка всех папок при загрузке страницы
+            async function checkAllFolders() {
+                const folders = [
+                    { name: 'portfolio', url: 'portfolio/index.html' },
+                    { name: 'dashboard', url: 'dashboard/index.html' },
+                    { name: 'game', url: 'game/index.html' }
+                ];
+                
+                let missingFolders = [];
+                
+                for (const folder of folders) {
+                    try {
+                        const response = await fetch(folder.url, { method: 'HEAD' });
+                        if (!response.ok) {
+                            missingFolders.push(folder.name);
+                        }
+                    } catch {
+                        missingFolders.push(folder.name);
+                    }
+                }
+                
+                if (missingFolders.length === 3) {
+                    showError('Создайте папки portfolio, dashboard и game');
+                } else if (missingFolders.length > 0) {
+                    showError(`Отсутствуют: ${missingFolders.join(', ')}`);
+                }
+            }
+            
+            // Запускаем проверку через небольшую задержку
+            setTimeout(checkAllFolders, 500);
+        });
+    </script>
+</body>
+</html>
