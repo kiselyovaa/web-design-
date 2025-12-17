@@ -24,7 +24,7 @@
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             text-align: center;
         }
 
@@ -46,67 +46,141 @@
             font-weight: 400;
         }
 
-        .buttons-grid {
+        .cards-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
             margin-bottom: 40px;
         }
 
-        .nav-button {
+        .card {
             background: white;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 32px 24px;
-            text-decoration: none;
-            color: #0f172a;
+            border-radius: 16px;
+            padding: 28px 24px;
             transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
-        .nav-button:hover {
-            transform: translateY(-2px);
+        .card:hover {
             border-color: #cbd5e1;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        .button-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            font-size: 20px;
+            font-size: 22px;
             color: white;
+            flex-shrink: 0;
         }
 
-        .portfolio .button-icon {
+        .portfolio .card-icon {
             background-color: #3b82f6;
         }
 
-        .dashboard .button-icon {
+        .dashboard .card-icon {
             background-color: #10b981;
         }
 
-        .game .button-icon {
+        .game .card-icon {
             background-color: #8b5cf6;
         }
 
-        .button-text {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 4px;
+        .card-title {
+            text-align: left;
         }
 
-        .button-number {
+        .card-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .card-number {
             font-size: 14px;
             color: #64748b;
             font-weight: 400;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .portfolio .btn-primary {
+            background-color: #3b82f6;
+        }
+
+        .portfolio .btn-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .dashboard .btn-primary {
+            background-color: #10b981;
+        }
+
+        .dashboard .btn-primary:hover {
+            background-color: #0da271;
+        }
+
+        .game .btn-primary {
+            background-color: #8b5cf6;
+        }
+
+        .game .btn-primary:hover {
+            background-color: #7c3aed;
+        }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: #475569;
+            border-color: #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-1px);
         }
 
         .footer {
@@ -131,6 +205,7 @@
             align-items: center;
             gap: 8px;
             max-width: 320px;
+            z-index: 100;
         }
 
         .error-message.show {
@@ -149,9 +224,17 @@
             }
         }
 
-        @media (max-width: 640px) {
-            .buttons-grid {
+        .icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
                 grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .header {
@@ -175,31 +258,97 @@
     <div class="container">
         <div class="header">
             <h1>Задания</h1>
-            <div class="subtitle">Выберите задание для просмотра</div>
+            <div class="subtitle">Задания для просмотра и репозитории</div>
         </div>
 
-        <div class="buttons-grid">
-            <a href="portfolio/index.html" class="nav-button portfolio">
-                <div class="button-icon">P</div>
-                <div class="button-text">Портфолио</div>
-                <div class="button-number">Задание 1</div>
-            </a>
+        <div class="cards-container">
+            <!-- Карточка Портфолио -->
+            <div class="card portfolio">
+                <div class="card-header">
+                    <div class="card-icon">P</div>
+                    <div class="card-title">
+                        <div class="card-name">Портфолио</div>
+                        <div class="card-number">Задание 1</div>
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <a href="portfolio/index.html" class="btn btn-primary view-task-btn" data-folder="portfolio">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        Посмотреть задание
+                    </a>
+                    <a href="https://github.com/kiselyovaa/web-design-/tree/main/portfolio" 
+                       target="_blank" 
+                       class="btn btn-secondary">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                        </svg>
+                        Репозиторий на GitHub
+                    </a>
+                </div>
+            </div>
 
-            <a href="dashboard/index.html" class="nav-button dashboard">
-                <div class="button-icon">D</div>
-                <div class="button-text">Дашборд</div>
-                <div class="button-number">Задание 2</div>
-            </a>
+            <!-- Карточка Дашборд -->
+            <div class="card dashboard">
+                <div class="card-header">
+                    <div class="card-icon">D</div>
+                    <div class="card-title">
+                        <div class="card-name">Дашборд</div>
+                        <div class="card-number">Задание 2</div>
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <a href="dashboard/index.html" class="btn btn-primary view-task-btn" data-folder="dashboard">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        Посмотреть задание
+                    </a>
+                    <a href="https://github.com/kiselyovaa/web-design-/tree/main/dashboard" 
+                       target="_blank" 
+                       class="btn btn-secondary">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                        </svg>
+                        Репозиторий на GitHub
+                    </a>
+                </div>
+            </div>
 
-            <a href="game/index.html" class="nav-button game">
-                <div class="button-icon">G</div>
-                <div class="button-text">Игра</div>
-                <div class="button-number">Задание 3</div>
-            </a>
+            <!-- Карточка Игра -->
+            <div class="card game">
+                <div class="card-header">
+                    <div class="card-icon">G</div>
+                    <div class="card-title">
+                        <div class="card-name">Игра</div>
+                        <div class="card-number">Задание 3</div>
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <a href="game/index.html" class="btn btn-primary view-task-btn" data-folder="game">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        Посмотреть задание
+                    </a>
+                    <a href="https://github.com/kiselyovaa/web-design-/tree/main/game" 
+                       target="_blank" 
+                       class="btn btn-secondary">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                        </svg>
+                        Репозиторий на GitHub
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
-            Навигационная страница • Все задания находятся в соответствующих папках
+            Навигационная страница • Киселева Анастасия • 4-МД-8
         </div>
     </div>
 
@@ -214,26 +363,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.nav-button');
+            const viewButtons = document.querySelectorAll('.view-task-btn');
             const errorMessage = document.getElementById('errorMessage');
             const errorText = document.getElementById('errorText');
             
-            // Проверка существования файлов при клике
-            buttons.forEach(button => {
+            // Функция проверки существования файла
+            async function checkFileExists(url) {
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    return response.ok;
+                } catch (error) {
+                    return false;
+                }
+            }
+            
+            // Обработчик для кнопок "Посмотреть задание"
+            viewButtons.forEach(button => {
                 button.addEventListener('click', async function(e) {
                     const url = this.getAttribute('href');
-                    const buttonName = this.querySelector('.button-text').textContent;
+                    const folderName = this.getAttribute('data-folder');
                     
-                    try {
-                        const response = await fetch(url, { method: 'HEAD' });
-                        
-                        if (!response.ok) {
-                            e.preventDefault();
-                            showError(`Папка "${buttonName.toLowerCase()}" не найдена`);
-                        }
-                    } catch (error) {
+                    const exists = await checkFileExists(url);
+                    
+                    if (!exists) {
                         e.preventDefault();
-                        showError(`Папка "${buttonName.toLowerCase()}" не найдена`);
+                        showError(`Папка "${folderName}" не найдена`);
                     }
                 });
             });
@@ -259,12 +413,8 @@
                 let missingFolders = [];
                 
                 for (const folder of folders) {
-                    try {
-                        const response = await fetch(folder.url, { method: 'HEAD' });
-                        if (!response.ok) {
-                            missingFolders.push(folder.name);
-                        }
-                    } catch {
+                    const exists = await checkFileExists(folder.url);
+                    if (!exists) {
                         missingFolders.push(folder.name);
                     }
                 }
